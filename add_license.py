@@ -23,6 +23,9 @@ def run_command(cmd, dir=None):
 
 
 def main():
+    with open("LICENSE") as apache2_license_file:
+        apache2_license = apache2_license_file.read()
+
     run_command("mkdir -p {}".format(working_dir))
 
     for repo in repos:
@@ -33,27 +36,20 @@ def main():
         paths = repo.split("/")
         repo_name = paths[-1]
 
-        readme_name = "README.md"
+        license_name = "LICENSE"
         repo_path = os.path.join(working_dir, repo_name)
-        readme_path = os.path.join(repo_path, readme_name)
-        readme_exists = os.path.isfile(readme_path)
-        if readme_exists:
-            print("UPDATING readme to {}".format(repo_name))
-            with open(readme_path, 'r+') as readme_file:
-                content = readme_file.read()
-                readme_file.seek(0, 0)
-                readme_file.write(archive_text_markdown.format(repo_name))
-                readme_file.write(content)
-        else:
-            print("ADDING readme to {}".format(repo_name))
-            with open(readme_path, 'w') as readme_file:
-                readme_file.write(archive_text_markdown.format(repo_name))
+        license_path = os.path.join(repo_path, license_name)
+        license_exists = os.path.isfile(license_path)
+        if not license_exists:
+            print("Adding license to {}".format(repo_name))
+            with open(license_path, 'w') as license_file:
+                license_file.write(apache2_license)
 
-        # commit locally
-        print(run_command("git add {}".format(readme_name), repo_path))
-        print(run_command("git commit -m 'Add archive text to {}'".format(readme_name), repo_path))
-        # push
-        print(run_command("git push", repo_path))
+            # commit locally
+            print(run_command("git add {}".format(license_name), repo_path))
+            print(run_command("git commit -m 'Add license {}'".format(license_name), repo_path))
+            # push
+            print(run_command("git push", repo_path))
 
 
 if __name__ == '__main__':
