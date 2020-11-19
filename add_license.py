@@ -6,9 +6,6 @@ from repos_full import repos
 
 working_dir = "/tmp/the-great-archiving"
 
-archive_text_markdown = "# {} is no longer actively maintained by VMware.\n\n"
-
-
 def run_command(cmd, dir=None):
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, cwd=dir)
     out, err = p.communicate()
@@ -20,7 +17,6 @@ def run_command(cmd, dir=None):
         raise Exception("Failed running command")
 
     return out.decode('utf8')
-
 
 def main():
     with open("LICENSE") as apache2_license_file:
