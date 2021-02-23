@@ -6,7 +6,8 @@ This is a quick set of scripts to for working with GitHub repositories.
 * `archive.py` archives via the GitHub API (using the `ACCESS_TOKEN` environment variable)
 * `unarchive.py` unarchives via the GitHub API (using the `ACCESS_TOKEN` environment variable)
 * `add_license.py` adds the [LICENSE](LICENSE) file to the repo if it does not exist.
-* `add_code_of_conduct.py` uses the GitHub API to retrieve a list of public, non-archived repositories for the given organization (using the `ACCESS_TOKEN` environment variable) and adds [CODE-OF-CONDUCT.md](CODE-OF-CONDUCT.md) if it does not exist.
+* `add_code_of_conduct.py` uses the GitHub GraphQL API to retrieve a list of public, non-archived repositories for the given organization (using the `ACCESS_TOKEN` environment variable) and adds [CODE-OF-CONDUCT.md](CODE-OF-CONDUCT.md) if it does not exist.
+* `move_repop.py` uses the GitHub GraphQL API to retrieve a list of public, archived, non-fork repositories for the given SOURCE organization, iterates through them and if they have a License, used the GitHub REST API to transfer them to the TARGET organziation.
 
 Be sure to run updating the README first, as once it's archived, it can no longer be updated
 without first unarchiving.
@@ -17,3 +18,23 @@ Various constants are hard-coded in the python files.
 
 ## Access Token
 To create the ACCESS_TOKEN go to https://github.com/settings/tokens and give it `repo` scope.
+
+## Editors
+### VScode / VSCodium:
+- Paste the ACCESS_TOKEN into `token.env`
+- Create a launch configuration with an `envFile` like shown below:
+  ```json
+    {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "envFile": "${workspaceFolder}/token.env",
+                "name": "Python: Current File",
+                "type": "python",
+                "request": "launch",
+                "program": "${file}",
+                "console": "integratedTerminal"
+            }
+        ]
+    }
+  ```
