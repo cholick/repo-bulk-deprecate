@@ -7,7 +7,7 @@ This is a quick set of scripts to for working with GitHub repositories.
 * `unarchive.py` unarchives via the GitHub API (using the `ACCESS_TOKEN` environment variable)
 * `add_license.py` adds the [LICENSE](LICENSE) file to the repo if it does not exist.
 * `add_code_of_conduct.py` uses the GitHub GraphQL API to retrieve a list of public, non-archived repositories for the given organization (using the `ACCESS_TOKEN` environment variable) and adds [CODE-OF-CONDUCT.md](CODE-OF-CONDUCT.md) if it does not exist.
-* `move_repop.py` uses the GitHub GraphQL API to retrieve a list of public, archived, non-fork repositories for the given SOURCE organization, iterates through them and if they have a License, used the GitHub REST API to transfer them to the TARGET organziation.
+* `move_repo.py` uses the GitHub GraphQL API to retrieve a list of public, archived, non-fork repositories for the given SOURCE organization, iterates through them and if they have a License, used the GitHub REST API to transfer them to the TARGET organziation.
 
 Be sure to run updating the README first, as once it's archived, it can no longer be updated
 without first unarchiving.
